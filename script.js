@@ -109,6 +109,8 @@ dateEle.addEventListener('change', e => {
 });
 
 document.querySelectorAll('.t').forEach(input => input.addEventListener('change', e => saveProgress()));
+document.querySelectorAll('.t').forEach(input => input.addEventListener('touchend', e => saveProgress()));
+document.querySelectorAll('.t').forEach(input => input.addEventListener('pointerdown', e => saveProgress()));
 
 document.addEventListener('DOMContentLoaded', e => {
     const today = new Date().toISOString().split('T')[0];
@@ -117,6 +119,22 @@ document.addEventListener('DOMContentLoaded', e => {
     setTimeout(e => {
         document.querySelectorAll('.p').forEach(input => {
             input.addEventListener('change', e => {
+                input.parentElement.querySelectorAll('.p').forEach(c => {
+                    if (e.target !== c) {
+                        c.checked = false;
+                    }
+                    saveProgress();
+                });
+            });
+            input.addEventListener('touchend', e => {
+                input.parentElement.querySelectorAll('.p').forEach(c => {
+                    if (e.target !== c) {
+                        c.checked = false;
+                    }
+                    saveProgress();
+                });
+            });
+            input.addEventListener('pointerdown', e => {
                 input.parentElement.querySelectorAll('.p').forEach(c => {
                     if (e.target !== c) {
                         c.checked = false;
