@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
+    <title>Prayer Tracker</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="tracker">
+            <label for="date">تاریخ:</label>
+            <input type="date" id="date" />
+        </div>
+        <div class="tracker">
+            <h2>نمازیں</h2>
+            <ul>
+                <li>
+                    <label>فجر:</label>
+                    <input type="checkbox" id="pfj" name="pf" data-name="pf" class="p pj" value="pj"> <label for="pfj">جماعت کے ساتھ</label>
+                    <input type="checkbox" id="pfa" name="pf" data-name="pf" class="p pa" value="pa"> <label for="pfa">اکیلے</label>
+                </li>
+                <li>
+                    <label>ظہر:</label>
+                    <input type="checkbox" id="pzj" name="pz" data-name="pz" class="p pj" value="pj"> <label for="pzj">جماعت کے ساتھ</label>
+                    <input type="checkbox" id="pza" name="pz" data-name="pz" class="p pa" value="pa"> <label for="pza">اکیلے</label>
+                </li>
+                <li>
+                    <label>عصر:</label>
+                    <input type="checkbox" id="paj" name="pa" data-name="pa" class="p pj" value="pj"> <label for="paj">جماعت کے ساتھ</label>
+                    <input type="checkbox" id="paa" name="pa" data-name="pa" class="p pa" value="pa"> <label for="paa">اکیلے</label>
+                </li>
+                <li>
+                    <label>مغرب:</label>
+                    <input type="checkbox" id="pmj" name="pm" data-name="pm" class="p pj" value="pj"> <label for="pmj">جماعت کے ساتھ</label>
+                    <input type="checkbox" id="pma" name="pm" data-name="pm" class="p pa" value="pa"> <label for="pma">اکیلے</label>
+                </li>
+                <li>
+                    <label>عشاء:</label>
+                    <input type="checkbox" id="pij" name="pi" data-name="pi" class="p pj" value="pj"> <label for="pij">جماعت کے ساتھ</label>
+                    <input type="checkbox" id="pia" name="pi" data-name="pi" class="p pa" value="pa"> <label for="pia">اکیلے</label>
+                </li>
+            </ul>
+        </div>
+        <div class="tracker">
+            <h2>تلاوت قران</h2>
+            <ul>
+                <li>
+                    <input type="checkbox" id="y" name="y" data-name="y" class="t" value="y">
+                    <label for="y">سورہ یسین:</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="r" name="r" data-name="r" class="t" value="r">
+                    <label for="r">سورہ رحمن:</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="m" name="m" data-name="m" class="t" value="m">
+                    <label for="m">سورہ ملک:</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="s" name="s" data-name="s" class="t" value="s">
+                    <label for="s">سورہ سجدہ:</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="w" name="w" data-name="w" class="t" value="w">
+                    <label for="w">سورہ واقعہ:</label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

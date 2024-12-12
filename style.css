@@ -1,0 +1,99 @@
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'Noto Nastaliq Urdu';
+    src: url('./fonts/NotoNastaliqUrdu-VariableFont_wght.ttf') format('truetype');
+}
+body {
+  margin: 0;
+  padding: 0;
+  color: #333;
+  direction: rtl;
+  user-select: none;
+  background: #f9f9f9;  
+  font-family: 'Noto Nastaliq Urdu', sans-serif;
+}
+.container {
+  padding: 20px;
+  max-width: 500px;
+  background: #fff;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h2 {
+  color: #444;
+  text-align: center;
+}
+.tracker {
+  margin-bottom: 20px;
+}
+ul {
+  padding: 0;
+  list-style: none;
+}
+ul li {
+  margin: 10px 0;
+}
+input[type='date'] {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+input[type='date']:focus {
+    outline: none;
+}
+/*.tracker {
+    overflow-x: auto;
+    padding-bottom: 5px;
+    display: inline-flex;
+    scrollbar-width: thin;
+    scrollbar-color: #999 #eee;
+}*/
+.tracker label {
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: .8rem;
+    background: #999;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .1);
+}
+.tracker label:hover {
+    color: #fff;
+    background: #4caf50;
+}
+.tracker input[type='checkbox'] {
+    display: none;
+    margin-right: 2px;
+}
+.tracker input[type='checkbox']:checked + label {
+    color: #fff;
+    background: #4caf50;
+}
+.hide {
+    display: none;
+}
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: #999;
+}
+button {
+  color: #fff;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  display: block;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 5px;
+  background: #007bff;
+}
+button:hover {
+  background: #0056b3;
+}
