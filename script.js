@@ -1,4 +1,5 @@
 let db;
+const dayEle = document.querySelector('#day');
 const dateEle = document.querySelector('#date');
 
 const initDB = () => {
@@ -15,7 +16,7 @@ const initDB = () => {
     req.onsuccess = e => {
         db = e.target.result;
         console.log('IndexedDB initialized');
-        loadProgress(new Date().toISOString().split('T')[0]);
+        loadProgress(new Date().toLocaleString().split('T')[0]);
     };
 
     req.onerror = e => {
@@ -105,6 +106,7 @@ const loadProgress = date => {
 // };
 
 dateEle.addEventListener('change', e => {
+    dayEle.textContent = new Date(e.target.value).toLocaleDateString('ur-PK', {weekday: 'long'});
     loadProgress(e.target.value);
 });
 
@@ -113,8 +115,9 @@ document.querySelectorAll('.t').forEach(input => input.addEventListener('touchen
 document.querySelectorAll('.t').forEach(input => input.addEventListener('pointerdown', e => saveProgress()));
 
 document.addEventListener('DOMContentLoaded', e => {
-    const today = new Date().toISOString().split('T')[0];
-    dateEle.value = today;
+    dayEle.textContent = new Date().toLocaleDateString('ur-PK', { weekday: 'long' });
+    const [month, day, year] = new Date().toLocaleDateString().split('/');
+    dateEle.value = `${year}-${month}-${day}`;
     initDB();
     setTimeout(e => {
         document.querySelectorAll('.p').forEach(input => {

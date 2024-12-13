@@ -22,11 +22,12 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 h2 {
+  margin: 0;
   color: #444;
   text-align: center;
 }
-.tracker {
-  margin-bottom: 20px;
+#day {
+    font-size: 1.5rem;
 }
 ul {
   padding: 0;
@@ -34,6 +35,10 @@ ul {
 }
 ul li {
   margin: 10px 0;
+}
+ul.tilawat {
+    display: flex;
+    flex-wrap: wrap;
 }
 input[type='date'] {
   margin: 5px;
@@ -45,13 +50,6 @@ input[type='date'] {
 input[type='date']:focus {
     outline: none;
 }
-/*.tracker {
-    overflow-x: auto;
-    padding-bottom: 5px;
-    display: inline-flex;
-    scrollbar-width: thin;
-    scrollbar-color: #999 #eee;
-}*/
 .tracker label {
     margin: 0 5px;
     cursor: pointer;
