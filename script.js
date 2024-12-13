@@ -64,7 +64,7 @@ const loadProgress = date => {
     req.onsuccess = () => {
         const progress = req.result || {
             prayers: { pf: false, pz: false, pa: false, pm: false, pi: false },
-            tilawat: { y: false, r: false, m: false, s: false, w: false },
+            tilawat: { y: false, r: false, m: false, s: false, w: false, k: false, b: false },
         };
         for (const [p, v] of Object.entries(progress.prayers)) {
             document.querySelectorAll(`input[name="${p}"]`).forEach(pc => {
