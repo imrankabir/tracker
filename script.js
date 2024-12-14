@@ -1,6 +1,10 @@
 let db;
+
 const dayEle = document.querySelector('#day');
 const dateEle = document.querySelector('#date');
+
+const get = (k, d) => JSON.parse(localStorage.getItem(`tracker-${k}`)) ?? d;
+const set = (k, v) => localStorage.setItem(`tracker-${k}`, JSON.stringify(v));
 
 const initDB = () => {
     const req = indexedDB.open('PrayerTilawatTracker', 1);
@@ -16,7 +20,7 @@ const initDB = () => {
     req.onsuccess = e => {
         db = e.target.result;
         console.log('IndexedDB initialized');
-        loadProgress(new Date().toLocaleString().split('T')[0]);
+        load(new Date().toLocaleString().split('T')[0]);
     };
 
     req.onerror = e => {
@@ -24,7 +28,7 @@ const initDB = () => {
     };
 };
 
-const saveProgress = () => {
+const save = () => {
     const date = dateEle.value;
     if (!date) {
         console.warn('Please select a date!');
@@ -57,7 +61,7 @@ const saveProgress = () => {
     };
 };
 
-const loadProgress = date => {
+const load = date => {
     const transaction = db.transaction('progress', 'readonly');
     const store = transaction.objectStore('progress');
     const req = store.get(date);
@@ -84,7 +88,7 @@ const loadProgress = date => {
     };
 };
 
-// const resetProgress = () => {
+// const reset = e => {
 //     const date = dateEle.value;
 //     if (!date) {
 //         console.warn('Please select a date!');
@@ -96,7 +100,7 @@ const loadProgress = date => {
 //     const req = store.delete(date);
 
 //     req.onsuccess = () => {
-//         loadProgress(date);
+//         load(date);
 //         console.info('Progress reset for the selected date!');
 //     };
 
@@ -107,26 +111,26 @@ const loadProgress = date => {
 
 dateEle.addEventListener('change', e => {
     dayEle.textContent = new Date(e.target.value).toLocaleDateString('ur-PK', {weekday: 'long'});
-    loadProgress(e.target.value);
+    load(e.target.value);
 });
 
-document.querySelectorAll('.t').forEach(input => input.addEventListener('change', e => saveProgress()));
-document.querySelectorAll('.t').forEach(input => input.addEventListener('touchend', e => saveProgress()));
-document.querySelectorAll('.t').forEach(input => input.addEventListener('pointerdown', e => saveProgress()));
+document.querySelectorAll('.t').forEach(input => input.addEventListener('change', e => save()));
+document.querySelectorAll('.t').forEach(input => input.addEventListener('touchend', e => save()));
+document.querySelectorAll('.t').forEach(input => input.addEventListener('pointerdown', e => save()));
 
-document.addEventListener('DOMContentLoaded', e => {
+document.addEventListener('DOMContentLoaded', () => {
     dayEle.textContent = new Date().toLocaleDateString('ur-PK', { weekday: 'long' });
     const [month, day, year] = new Date().toLocaleDateString().split('/');
     dateEle.value = `${year}-${month}-${day}`;
     initDB();
-    setTimeout(e => {
+    setTimeout(event => {
         document.querySelectorAll('.p').forEach(input => {
             input.addEventListener('change', e => {
                 input.parentElement.querySelectorAll('.p').forEach(c => {
                     if (e.target !== c) {
                         c.checked = false;
                     }
-                    saveProgress();
+                    save();
                 });
             });
             input.addEventListener('touchend', e => {
@@ -134,7 +138,7 @@ document.addEventListener('DOMContentLoaded', e => {
                     if (e.target !== c) {
                         c.checked = false;
                     }
-                    saveProgress();
+                    save();
                 });
             });
             input.addEventListener('pointerdown', e => {
@@ -142,7 +146,7 @@ document.addEventListener('DOMContentLoaded', e => {
                     if (e.target !== c) {
                         c.checked = false;
                     }
-                    saveProgress();
+                    save();
                 });
             });
         });
