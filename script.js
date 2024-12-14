@@ -20,7 +20,22 @@ const initDB = () => {
     req.onsuccess = e => {
         db = e.target.result;
         console.log('IndexedDB initialized');
-        load(new Date().toLocaleString().split('T')[0]);
+        const { today } = get('changed', {today: null});
+        // let date = new Date().toLocaleString().split('T')[0];
+        let date = getDate();
+        if (today != null && today == date) {
+            let { date } = get('selected', {date: null});
+            if (date == null) {
+                date = getDate();
+            }
+            dateEle.value = date;
+            dayEle.textContent = getDay(date);
+            load(date);
+        } else {
+            dateEle.value = date;
+            dayEle.textContent = getDay(date);
+            load(date);
+        }
     };
 
     req.onerror = e => {
@@ -109,9 +124,22 @@ const load = date => {
 //     };
 // };
 
+const getDay = date => {
+    return new Date(date).toLocaleDateString('ur-PK', {weekday: 'long'});
+};
+
+const getDate = e => {
+    const [month, day, year] = new Date().toLocaleDateString().split('/');
+    return `${year}-${month}-${day}`;
+};
+
 dateEle.addEventListener('change', e => {
-    dayEle.textContent = new Date(e.target.value).toLocaleDateString('ur-PK', {weekday: 'long'});
-    load(e.target.value);
+    const date = e.target.value;
+    dayEle.textContent = getDay(date);
+    const today = getDate();
+    set('changed', {today});
+    set('selected', {date});
+    load(date);
 });
 
 document.querySelectorAll('.t').forEach(input => input.addEventListener('change', e => save()));
@@ -119,9 +147,6 @@ document.querySelectorAll('.t').forEach(input => input.addEventListener('touchen
 document.querySelectorAll('.t').forEach(input => input.addEventListener('pointerdown', e => save()));
 
 document.addEventListener('DOMContentLoaded', () => {
-    dayEle.textContent = new Date().toLocaleDateString('ur-PK', { weekday: 'long' });
-    const [month, day, year] = new Date().toLocaleDateString().split('/');
-    dateEle.value = `${year}-${month}-${day}`;
     initDB();
     setTimeout(event => {
         document.querySelectorAll('.p').forEach(input => {
