@@ -19,9 +19,7 @@ const initDB = () => {
 
     req.onsuccess = e => {
         db = e.target.result;
-        console.log('IndexedDB initialized');
         const { today } = get('changed', {today: null});
-        // let date = new Date().toLocaleString().split('T')[0];
         let date = getDate();
         if (today != null && today == date) {
             let { date } = get('selected', {date: null});
@@ -30,10 +28,12 @@ const initDB = () => {
             }
             dateEle.value = date;
             dayEle.textContent = getDay(date);
+            toggleSurah(date);
             load(date);
         } else {
             dateEle.value = date;
             dayEle.textContent = getDay(date);
+            toggleSurah(date);
             load(date);
         }
     };
@@ -56,6 +56,7 @@ const save = () => {
             prayers[c.dataset.name] = c.value;
         }
     });
+    
     const tilawat = {};
     document.querySelectorAll('.t').forEach(c => {
         if (c.checked) {
@@ -124,14 +125,27 @@ const load = date => {
 //     };
 // };
 
+const pad = n => n.toString().length == 1 ? n.toString().padStart(2, '0') : n;
+
 const getDay = date => {
     return new Date(date).toLocaleDateString('ur-PK', {weekday: 'long'});
 };
 
 const getDate = e => {
     const [month, day, year] = new Date().toLocaleDateString().split('/');
-    return `${year}-${month}-${day}`;
+    return `${year}-${pad(month)}-${pad(day)}`;
 };
+
+const toggleSurah = date => {
+   const day = new Date(date).toLocaleDateString('en-US', {weekday: 'short'}).toLowerCase();
+   if (day === 'fri') {
+        document.querySelector('.k').classList.remove('hide');
+    } else {
+        document.querySelector('.k').classList.add('hide');
+    }
+};
+
+const isMobile = navigator.userAgentData.mobile;
 
 dateEle.addEventListener('change', e => {
     const date = e.target.value;
@@ -139,6 +153,7 @@ dateEle.addEventListener('change', e => {
     const today = getDate();
     set('changed', {today});
     set('selected', {date});
+    toggleSurah(date);
     load(date);
 });
 
